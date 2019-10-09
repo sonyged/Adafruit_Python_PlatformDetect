@@ -471,7 +471,7 @@ class Board:
     @property
     def any_koov_ai_board(self):
         """Check whether the current board is any defined KOOV.ai."""
-        return self.id in _KOOV_AI_IDS
+        return self.KOOV_AI
 
     @property
     def any_giant_board(self):
@@ -499,7 +499,7 @@ class Board:
         return self.any_raspberry_pi or self.any_beaglebone or \
          self.any_orange_pi or self.any_giant_board or self.any_jetson_board or \
          self.any_coral_board or self.any_odroid_40_pin or self.any_96boards or \
-         self.any_sifive_board
+         self.any_sifive_board or self.any_koov_ai_board
 
     @property
     def ftdi_ft232h(self):
