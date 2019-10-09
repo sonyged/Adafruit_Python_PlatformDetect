@@ -39,6 +39,9 @@ JETSON_NANO                 = 'JETSON_NANO'
 # Google Coral dev board
 CORAL_EDGE_TPU_DEV          = "CORAL_EDGE_TPU_DEV"
 
+# Sony Global Education KOOV.ai board
+KOOV_AI                     = "KOOV_AI"
+
 # Various Raspberry Pi models
 RASPBERRY_PI_B_REV1         = "RASPBERRY_PI_B_REV1"
 RASPBERRY_PI_B_REV2         = "RASPBERRY_PI_B_REV2"
@@ -77,6 +80,10 @@ _ORANGE_PI_IDS = (
 
 _CORAL_IDS = (
     CORAL_EDGE_TPU_DEV,
+)
+
+_KOOV_AI_IDS = (
+    KOOV_AI,
 )
 
 _JETSON_IDS = (
@@ -401,6 +408,8 @@ class Board:
         board_value = self.detector.get_device_model()
         if "Phanbell" in board_value:
             return CORAL_EDGE_TPU_DEV
+        if "koov_ai" in board_value:
+            return KOOV_AI
         return None
 
     def _tegra_id(self):
@@ -458,6 +467,11 @@ class Board:
     def any_coral_board(self):
         """Check whether the current board is any defined Coral."""
         return self.CORAL_EDGE_TPU_DEV
+
+    @property
+    def any_koov_ai_board(self):
+        """Check whether the current board is any defined KOOV.ai."""
+        return self.id in _KOOV_AI_IDS
 
     @property
     def any_giant_board(self):
