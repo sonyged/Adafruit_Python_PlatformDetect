@@ -39,6 +39,9 @@ JETSON_NANO                 = 'JETSON_NANO'
 # Google Coral dev board
 CORAL_EDGE_TPU_DEV          = "CORAL_EDGE_TPU_DEV"
 
+# Sony Global Education KOOV.ai board
+KOOV_AI                     = "KOOV_AI"
+
 # Various Raspberry Pi models
 RASPBERRY_PI_B_REV1         = "RASPBERRY_PI_B_REV1"
 RASPBERRY_PI_B_REV2         = "RASPBERRY_PI_B_REV2"
@@ -77,6 +80,10 @@ _ORANGE_PI_IDS = (
 
 _CORAL_IDS = (
     CORAL_EDGE_TPU_DEV,
+)
+
+_KOOV_AI_IDS = (
+    KOOV_AI,
 )
 
 _JETSON_IDS = (
@@ -401,6 +408,8 @@ class Board:
         board_value = self.detector.get_device_model()
         if "Phanbell" in board_value:
             return CORAL_EDGE_TPU_DEV
+        if "koov_ai" in board_value:
+            return KOOV_AI
         return None
 
     def _tegra_id(self):
@@ -460,6 +469,11 @@ class Board:
         return self.CORAL_EDGE_TPU_DEV
 
     @property
+    def any_koov_ai_board(self):
+        """Check whether the current board is any defined KOOV.ai."""
+        return self.KOOV_AI
+
+    @property
     def any_giant_board(self):
         """Check whether the current board is any defined Giant Board."""
         return self.GIANT_BOARD
@@ -485,7 +499,7 @@ class Board:
         return self.any_raspberry_pi or self.any_beaglebone or \
          self.any_orange_pi or self.any_giant_board or self.any_jetson_board or \
          self.any_coral_board or self.any_odroid_40_pin or self.any_96boards or \
-         self.any_sifive_board
+         self.any_sifive_board or self.any_koov_ai_board
 
     @property
     def ftdi_ft232h(self):

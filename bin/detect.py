@@ -31,3 +31,12 @@ if detector.board.any_orange_pi:
 
 if detector.board.any_odroid_40_pin:
     print("Odroid detected.")
+
+if detector.board.any_coral_board:
+    print("Coral detected.")
+
+if detector.board.any_giant_board:
+    print("Giant detected.")
+
+if detector.board.any_koov_ai_board:
+    print("KOOV.ai detected.")
