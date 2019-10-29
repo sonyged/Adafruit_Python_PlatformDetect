@@ -408,7 +408,7 @@ class Board:
         board_value = self.detector.get_device_model()
         if "Phanbell" in board_value:
             return CORAL_EDGE_TPU_DEV
-        if "koov_ai" in board_value:
+        if "KOOV.ai" in board_value or "koov_ai" in board_value:
             return KOOV_AI
         return None
 
