@@ -41,6 +41,10 @@ CORAL_EDGE_TPU_DEV          = "CORAL_EDGE_TPU_DEV"
 
 # Sony Global Education KOOV.ai board
 KOOV_AI                     = "KOOV_AI"
+KOOV_AI_EVT1                = "KOOV_AI_EVT1"
+KOOV_AI_EVT2                = "KOOV_AI_EVT2"
+KOOV_AI_DVT1                = "KOOV_AI_DVT1"
+KOOV_AI_PVT1                = "KOOV_AI_PVT1"
 
 # Various Raspberry Pi models
 RASPBERRY_PI_B_REV1         = "RASPBERRY_PI_B_REV1"
@@ -84,6 +88,10 @@ _CORAL_IDS = (
 
 _KOOV_AI_IDS = (
     KOOV_AI,
+    KOOV_AI_EVT1,
+    KOOV_AI_EVT2,
+    KOOV_AI_DVT1,
+    KOOV_AI_PVT1,
 )
 
 _JETSON_IDS = (
@@ -408,8 +416,17 @@ class Board:
         board_value = self.detector.get_device_model()
         if "Phanbell" in board_value:
             return CORAL_EDGE_TPU_DEV
-        if "KOOV.ai" in board_value or "koov_ai" in board_value:
-            return KOOV_AI
+        if "SGED KOOV.ai" in board_value:
+            compatible = self.detector.get_device_compatible()
+            if "sged,evt-1" in compatible:
+                return KOOV_AI_EVT1
+            if "sged,evt-2" in compatible:
+                return KOOV_AI_EVT2
+            if "sged,dvt-1" in compatible:
+                return KOOV_AI_DVT1
+            if "sged,pvt-1" in compatible:
+                return KOOV_AI_PVT1
+            raise NotImplementedError(f'compatible: {compatible}')
         return None
 
     def _tegra_id(self):
@@ -471,7 +488,7 @@ class Board:
     @property
     def any_koov_ai_board(self):
         """Check whether the current board is any defined KOOV.ai."""
-        return self.KOOV_AI
+        return self.id in _KOOV_AI_IDS
 
     @property
     def any_giant_board(self):
